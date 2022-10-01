@@ -1,11 +1,11 @@
-// MARK: DOM Elements
+// MARK: DOM ELEMENTS
 const question = document.querySelector('#question');
 const choices = Array.from(document.querySelectorAll('.choice-text'));
-const questionCounterText = document.querySelector('#questionCounter');
+const questionCounterText = document.querySelector('#question-counter');
 const scoreText = document.querySelector('#score');
 const progressBarFill = document.querySelector('#progress-bar-fill');
 
-// MARK: Variables
+// MARK: VARIABLES
 let currentQuestion = {};
 let acceptingAnswers = false;
 let score = 0;
@@ -39,11 +39,11 @@ let questions = [
     },
 ];
 
-// MARK: Constants
-const CORRECT_BONUS = 10;
-const MAX_QUESTIONS = 3;
+// MARK: CONSTANTS
+const CORRECT_BONUS = Math.floor(Math.random() * 25);
+const MAX_QUESTIONS = questions.length;
 
-// MARK: Functions
+// MARK: FUNCTIONS
 startGame = () => {
     questionCounter = 0;
     score = 0;
@@ -109,5 +109,5 @@ choices.forEach(choice => {
     });
 });
 
-// MARK: Start Game
+// MARK: START GAME
 startGame();
