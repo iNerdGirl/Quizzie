@@ -3,6 +3,7 @@ const question = document.querySelector('#question');
 const choices = Array.from(document.querySelectorAll('.choice-text'));
 const questionCounterText = document.querySelector('#questionCounter');
 const scoreText = document.querySelector('#score');
+const progressBarFill = document.querySelector('#progress-bar-fill');
 
 // MARK: Variables
 let currentQuestion = {};
@@ -58,6 +59,8 @@ getNewQuestion = () => {
     questionCounter++;
 
     questionCounterText.innerText = `${questionCounter}/${MAX_QUESTIONS}`
+
+    progressBarFill.style.width = `${(questionCounter / MAX_QUESTIONS) * 100}%`;
 
     const questionIndex = Math.floor(Math.random() * availableQuestions.length);
     currentQuestion = availableQuestions[questionIndex];
