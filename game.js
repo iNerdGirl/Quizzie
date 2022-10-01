@@ -1,8 +1,10 @@
+// MARK: DOM Elements
 const question = document.querySelector('#question');
 const choices = Array.from(document.querySelectorAll('.choice-text'));
+const questionCounterText = document.querySelector('#questionCounter');
+const scoreText = document.querySelector('#score');
 
-console.log(choices)
-
+// MARK: Variables
 let currentQuestion = {};
 let acceptingAnswers = false;
 let score = 0;
@@ -36,9 +38,11 @@ let questions = [
     },
 ];
 
-const CORRECT_BONUS = 50;
+// MARK: Constants
+const CORRECT_BONUS = 10;
 const MAX_QUESTIONS = 3;
 
+// MARK: Functions
 startGame = () => {
     questionCounter = 0;
     score = 0;
@@ -52,6 +56,9 @@ getNewQuestion = () => {
     }
 
     questionCounter++;
+
+    questionCounterText.innerText = `${questionCounter}/${MAX_QUESTIONS}`
+
     const questionIndex = Math.floor(Math.random() * availableQuestions.length);
     currentQuestion = availableQuestions[questionIndex];
     question.innerText = currentQuestion.question;
@@ -66,6 +73,16 @@ getNewQuestion = () => {
     acceptingAnswers = true;
 }
 
+incrementScore = num => {
+    score += num;
+    scoreText.innerText = score;
+}
+
+decrementScore = num => {
+    score -= num;
+    scoreText.innerText = score;
+}
+
 choices.forEach(choice => {
     choice.addEventListener('click', e => {
         if (!acceptingAnswers) return;
@@ -75,6 +92,8 @@ choices.forEach(choice => {
         const selectedAnswer = selectedChoice.dataset['number'];
 
         const classToApply = selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect';
+
+        classToApply === 'correct' ? incrementScore(CORRECT_BONUS) : decrementScore(CORRECT_BONUS);
 
         selectedChoice.parentElement.classList.add(classToApply);
         setTimeout(() => {
@@ -86,6 +105,5 @@ choices.forEach(choice => {
     });
 });
 
+// MARK: Start Game
 startGame();
-
-
